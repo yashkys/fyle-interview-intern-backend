@@ -91,3 +91,9 @@ class Assignment(db.Model):
     @classmethod
     def get_assignments_by_teacher(cls):
         return cls.query.all()
+    
+    @classmethod
+    def get_graded_submitted_assignments(cls):
+        return cls.filter(
+            cls.state == AssignmentStateEnum.GRADED
+        ).all()
