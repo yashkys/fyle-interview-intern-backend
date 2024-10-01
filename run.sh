@@ -14,4 +14,17 @@ export FLASK_APP=core/server.py
 # flask db upgrade -d core/migrations/
 
 # Run server
-gunicorn -c gunicorn_config.py core.server:app
+# gunicorn -c gunicorn_config.py core.server:app
+# Check the operating system and run the appropriate server
+if [[ "$OSTYPE" == "linux-gnu"* || "$OSTYPE" == "darwin"* ]]; then
+    # For Linux or macOS
+    echo "Running on Linux or macOS. Starting with Gunicorn..."
+    gunicorn -c gunicorn_config.py core.server:app
+elif [[ "$OSTYPE" == "msys" || "$OSTYPE" == "cygwin" || "$OSTYPE" == "win32" ]]; then
+    # For Windows environments
+    echo "Running on Windows. Starting with Waitress..."
+    python -m waitress 'core.server:app'
+else
+    echo "Unsupported OS: $OSTYPE"
+    exit 1
+fi
