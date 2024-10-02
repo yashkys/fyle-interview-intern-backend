@@ -32,7 +32,7 @@ def list_teachers(p):
 def grade_regrade_assignment(p, incoming_payload):
     grade_assignment_payload = AssignmentGradeSchema().load(incoming_payload)
 
-    graded_assignment = Assignment.mark_grade(
+    graded_assignment = Assignment.mark_grade_or_regrade(
         _id=grade_assignment_payload.id,
         grade=grade_assignment_payload.grade,
         auth_principal=p

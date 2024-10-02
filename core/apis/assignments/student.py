@@ -37,6 +37,7 @@ def upsert_assignment(p, incoming_payload):
 def submit_assignment(p, incoming_payload):
     """Submit an assignment"""
     submit_assignment_payload = AssignmentSubmitSchema().load(incoming_payload)
+    print(f"Print Auth Principal : {p.__dict__}")
 
     submitted_assignment = Assignment.submit(
         _id=submit_assignment_payload.id,
